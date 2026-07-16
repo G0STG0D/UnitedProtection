@@ -54,6 +54,27 @@
         </resources>
     </build>
 
+    <profiles>
+        <profile>
+            <id>local-deploy</id>
+            <activation>
+                <file><exists>${basedir}/.local-deploy</exists></file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>3.2.4</version>
+                        <configuration>
+                            <outputFile>../_server/plugins/${project.build.finalName}.jar</outputFile>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <repositories>
         <repository>
             <id>papermc</id>
