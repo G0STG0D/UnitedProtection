@@ -13,7 +13,12 @@ public class TownyListener implements Listener {
 
     @EventHandler
     public void onTownUnclaim(final TownUnclaimEvent event) {
-        Utils.removeProtections(event.getWorldCoord());
+        var worldCoord = event.getWorldCoord();
+        var plugin = UnitedProtection.getPlugin();
+
+        plugin.getServer().getGlobalRegionScheduler().run(plugin,
+                task -> Utils.removeProtections(worldCoord)
+        );
     }
 
     @EventHandler
@@ -22,7 +27,11 @@ public class TownyListener implements Listener {
         if (townBlock == null)
             return;
 
-        Utils.removeProtections(townBlock.getWorldCoord());
+        var worldCoord = townBlock.getWorldCoord();
+        var plugin = UnitedProtection.getPlugin();
+        plugin.getServer().getGlobalRegionScheduler().run(plugin,
+                task -> Utils.removeProtections(worldCoord)
+        );
     }
 
     @EventHandler
